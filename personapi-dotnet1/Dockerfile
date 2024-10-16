@@ -1,9 +1,7 @@
-# Usa la imagen oficial de .NET 8 SDK para construir el proyecto
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
-# Copia el archivo .csproj y restaura las dependencias
-COPY personapi-dotnet/*.csproj ./personapi-dotnet/
+COPY *.csproj ./personapi-dotnet/
 WORKDIR /app/personapi-dotnet
 RUN dotnet restore
 
@@ -20,4 +18,4 @@ COPY --from=build-env /app/personapi-dotnet/out .
 EXPOSE 80
 
 # Define el comando que se ejecutará cuando el contenedor inicie
-ENTRYPOINT ["dotnet", "Script.sql"]
+ENTRYPOINT ["dotnet", "Script.dll"]
